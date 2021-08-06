@@ -1,16 +1,18 @@
 {
-    "name": "oseintow/laravel-bigcommerce",
+    "name": "sairum123/laravel-bigcommerce",
     "description": "Laravel bigcommerce package",
     "license": "MIT",
     "authors": [
         {
             "name": "michael osei ntow",
-            "email": "oseintow@gmail.com"
+            "email": "oseintow@gmail.com",
+            "name": "Sairum Hussain",
+            "email": "sairum.h@gmail.com"
         }
     ],
     "require": {
         "php": ">=7.0.0",
-        "illuminate/support": "^5.4",
+        "illuminate/support": "^5.4|^6.0|^7.0|^8.0",
         "bigcommerce/api": "^3.0"
     },
     "autoload": {
