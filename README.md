@@ -1,9 +1,9 @@
 # Laravel Bigcommerce
 
 Laravel Bigcommerce is a simple package which helps to build robust integration into bigcommerce.
-This package support the Version 2 and 3 of the Bigcommerce Api.
+This package support the Version 2 and 3 of the Bigcommerce Api and Laravel version 5 or upword.
 
-##Note:
+## Note:
 I just change the laravel support of this package from Laravel version 5 to Laravel 8
 
 ## Installation
