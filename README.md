@@ -10,7 +10,7 @@ I just change the laravel support of this package from Laravel version 5 to Lara
 
 Add package to composer.json
 
-    composer require oseintow/laravel-bigcommerce
+    composer require sairum123/laravel-bigcommerce
 
 Add the service provider to config/app.php in the providers array.
 
