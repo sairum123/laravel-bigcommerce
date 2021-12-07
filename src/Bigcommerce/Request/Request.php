@@ -4,7 +4,7 @@
  * @package    MSWApp
  * @copyright  Copyright (c) 2020 Folio3 (https://www.folio3.com/)
  */
-namespace App\Request;
+namespace Oseintow\Bigcommerce\Request;
 
 use Illuminate\Support\Facades\Log;
 use Oseintow\Bigcommerce\Bigcommerce;
