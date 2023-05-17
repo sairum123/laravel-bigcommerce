@@ -12,7 +12,7 @@
     ],
     "require": {
         "php": ">=7.0.0",
-        "illuminate/support": "^5.4|^6.0|^7.0|^8.0",
+        "illuminate/support": "^6.0|^7.0|^8.0|^9.0|^10.0",
         "bigcommerce/api": "^3.0"
     },
     "autoload": {
