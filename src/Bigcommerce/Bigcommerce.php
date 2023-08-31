@@ -18,7 +18,7 @@ class Bigcommerce
     protected $bigcommerce;
     protected $connection;
     protected $version = "v3";
-    protected $authServiceUrl= "https://login.bigcommerce.com/";
+    protected $authServiceUrl = "https://login.bigcommerce.com/";
     protected $baseApiUrl  =  "https://api.bigcommerce.com/";
     protected $redirectUrl;
     protected $resourceUri;
@@ -49,18 +49,18 @@ class Bigcommerce
     private function oAuth()
     {
         $this->bigcommerce = new BigcommerceClient();
-        $this->clientId = Config::get('bigcommerce.'.$this->connection.'.client_id');
-        $this->clientSecret = Config::get('bigcommerce.'.$this->connection.'.client_secret');
-        $this->redirectUrl = Config::get('bigcommerce.'.$this->connection.'.redirect_url');
-        $this->bigcommerce->addHeader("X-Auth-Client", $this->clientId );
+        $this->clientId = Config::get('bigcommerce.' . $this->connection . '.client_id');
+        $this->clientSecret = Config::get('bigcommerce.' . $this->connection . '.client_secret');
+        $this->redirectUrl = Config::get('bigcommerce.' . $this->connection . '.redirect_url');
+        $this->bigcommerce->addHeader("X-Auth-Client", $this->clientId);
     }
 
     private function basicAuth()
     {
         BigcommerceCollectionResource::configure([
-            'store_url' => Config::get('bigcommerce.'.$this->connection.'.store_url'),
-            'username'  => Config::get('bigcommerce.'.$this->connection.'.username'),
-            'api_key'   => Config::get('bigcommerce.'.$this->connection.'.api_key')
+            'store_url' => Config::get('bigcommerce.' . $this->connection . '.store_url'),
+            'username'  => Config::get('bigcommerce.' . $this->connection . '.username'),
+            'api_key'   => Config::get('bigcommerce.' . $this->connection . '.api_key')
         ]);
     }
 
@@ -87,14 +87,14 @@ class Bigcommerce
         $tokenUrl = $this->authServiceUrl . "oauth2/token";
 
         $response = $this->bigcommerce->post($tokenUrl, [
-                "client_id" => $this->clientId,
-                "client_secret" => $this->clientSecret,
-                "redirect_uri" => $this->redirectUrl,
-                "grant_type" => "authorization_code",
-                "code" => $code,
-                "scope" => $scope,
-                "context" => $context
-            ]);
+            "client_id" => $this->clientId,
+            "client_secret" => $this->clientSecret,
+            "redirect_uri" => $this->redirectUrl,
+            "grant_type" => "authorization_code",
+            "code" => $code,
+            "scope" => $scope,
+            "context" => $context
+        ]);
 
         return $response;
     }
@@ -133,10 +133,11 @@ class Bigcommerce
                 }
             }
 
-            return $this->version== "v2" ?
-                collect($data) : collect($data)->map(function($value) { return collect($value); });
-
-        }catch(Exception $e){
+            return $this->version == "v2" ?
+                collect($data) : collect($data)->map(function ($value) {
+                    return collect($value);
+                });
+        } catch (Exception $e) {
             throw new BigcommerceApiException($e->getMessage(), $e->getCode());
         }
     }
@@ -144,7 +145,7 @@ class Bigcommerce
     public function makeBigcomerceCollectionRequest($method, $args)
     {
         try {
-            if($this->connection == "oAuth"){
+            if ($this->connection == "oAuth") {
                 BigcommerceCollectionResource::configure([
                     'client_id'  => $this->clientId,
                     'auth_token' => $this->accessToken,
@@ -152,15 +153,20 @@ class Bigcommerce
                 ]);
             }
 
-            if($this->version == "v3")
+            if ($this->version == "v3")
                 throw new BigcommerceApiException("Bigcommerce collection does not support api version 3", 403);
 
             $data = call_user_func_array([BigcommerceCollectionResource::class, $method], $args);
 
             return $data;
-        }catch(Exception $e){
+        } catch (Exception $e) {
             throw new BigcommerceApiException($e->getMessage(), $e->getCode());
         }
+    }
+
+    public function getRequestErrors()
+    {
+        return collect($this->bigcommerce->getLastError());
     }
 
     public function resourceUri($resource)
@@ -196,5 +202,4 @@ class Bigcommerce
     {
         return $this->bigcommerce->getheader($header);
     }
-
 }
